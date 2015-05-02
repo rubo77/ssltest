@@ -5,7 +5,7 @@ import de.dogcraft.ssltest.dns.rr.RR;
 public enum RRType {
     UNKNOWN(0, true),
 
-    A(1),
+    A(1, de.dogcraft.ssltest.dns.rr.A.class),
     NS(2),
     MD(3),
     MF(4),
