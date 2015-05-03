@@ -53,7 +53,7 @@ class RDataCoder {
     public static void writeDNSLabel(OutputStream os, String dnslabel) throws IOException {
         byte[] dnslabelBytes = dnslabel.toString().getBytes(Charset.forName("ASCII"));
 
-        if (dnslabelBytes.length > 255) {
+        if (dnslabelBytes.length > 63) {
             throw new IOException("dnslabel too long to encode");
         }
 
