@@ -32,7 +32,7 @@ public enum RRType {
     KEY(25),
     PX(26),
     GPOS(27),
-    AAAA(28),
+    AAAA(28, de.dogcraft.ssltest.dns.rr.AAAA.class),
     LOC(29),
     NXT(30),
     EID(31),
