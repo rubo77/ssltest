@@ -38,6 +38,22 @@ public class A extends RR {
         return "A";
     }
 
+    @Override
+    public boolean fromTextualRData(String textual, String origin) {
+        try {
+            this.setIP4Address(Inet4Address.getByName(textual));
+        } catch (UnknownHostException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public String toTextualRData() {
+        return ip4address.toString();
+    }
+
     public InetAddress getIP4Address() {
         return ip4address;
     }

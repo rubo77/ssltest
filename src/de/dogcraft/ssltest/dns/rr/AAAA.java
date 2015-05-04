@@ -38,6 +38,22 @@ public class AAAA extends RR {
         return "AAAA";
     }
 
+    @Override
+    public boolean fromTextualRData(String textual, String origin) {
+        try {
+            this.setIP6Address(Inet6Address.getByName(textual));
+        } catch (UnknownHostException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public String toTextualRData() {
+        return ip6address.toString();
+    }
+
     public InetAddress getIP6Address() {
         return ip6address;
     }

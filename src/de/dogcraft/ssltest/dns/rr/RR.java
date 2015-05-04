@@ -37,6 +37,18 @@ public class RR {
     public void toStream(OutputStream os) throws IOException {}
 
     public boolean fromTextual(String textual) {
+        return fromTextual(textual, "");
+    }
+
+    public boolean fromTextual(String textual, String origin) {
+        return false;
+    }
+
+    public boolean fromTextualRData(String textual) {
+        return fromTextualRData(textual, "");
+    }
+
+    public boolean fromTextualRData(String textual, String origin) {
         if ( !textual.startsWith("\\# ")) {
             return false;
         }
