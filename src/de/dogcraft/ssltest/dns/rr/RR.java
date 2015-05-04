@@ -71,6 +71,10 @@ public class RR {
     }
 
     public String toTextual(String origin) {
+        return String.format(Locale.ENGLISH, "%s\t%d\t%s\t%s\t%s", this.getLabel(origin), this.getTTL(), this.getRRClassName(), this.getTypeName(), this.toTextualRData()).trim();
+    }
+
+    public String toTextualRData() {
         return String.format(Locale.ENGLISH, "\\# %d %s", this.rdata.length, Hex.encode(this.rdata)).trim();
     }
 
@@ -84,6 +88,14 @@ public class RR {
 
     public String getLabel() {
         return label;
+    }
+
+    public String getLabel(String origin) {
+        if (label.equals(origin)) {
+            return "@";
+        }
+
+        return label.endsWith("." + origin) ? label.substring(0, label.length() - origin.length() - 1) : label;
     }
 
     protected void setLabel(String label) {
@@ -102,6 +114,10 @@ public class RR {
         return rrclass;
     }
 
+    public String getRRClassName() {
+        return String.format(Locale.ENGLISH, "CLASS%d", rrclass.id);
+    }
+
     public void setRRClass(RRClass rrclass) {
         this.rrclass = rrclass;
     }
@@ -109,6 +125,10 @@ public class RR {
     public int getType() {
         return type;
     };
+
+    public String getTypeName() {
+        return String.format(Locale.ENGLISH, "TYPE%d", this.getType());
+    }
 
     protected void setType(int type) {
         this.type = type;

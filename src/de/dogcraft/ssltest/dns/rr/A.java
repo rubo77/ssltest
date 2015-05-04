@@ -33,6 +33,11 @@ public class A extends RR {
         return true;
     }
 
+    @Override
+    public String getTypeName() {
+        return "A";
+    }
+
     public InetAddress getIP4Address() {
         return ip4address;
     }
