@@ -3,6 +3,11 @@ package de.dogcraft.ssltest.dns.rr;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+
+import org.bouncycastle.util.encoders.Hex;
 
 import de.dogcraft.ssltest.dns.RRClass;
 import de.dogcraft.ssltest.dns.RRType;
@@ -32,7 +37,33 @@ public class RR {
     public void toStream(OutputStream os) throws IOException {}
 
     public boolean fromTextual(String textual) {
-        return false;
+        if ( !textual.startsWith("\\# ")) {
+            return false;
+        }
+
+        textual = textual.trim();
+        int pos = textual.indexOf(" ");
+        if ( -1 == pos) {
+            if (0 == Integer.parseInt(textual.trim())) {
+                return this.setRData(new byte[0]);
+            } else {
+                return false;
+            }
+        }
+
+        List<String> dataArr = Arrays.asList(textual.split(" "));
+        int len = Integer.parseInt(dataArr.get(0));
+
+        dataArr.remove(0);
+
+        textual = String.join("", dataArr);
+        textual = textual.replaceAll("\\((.*?)\\)", "\\1");
+        byte[] rdata_bin = Hex.decode(textual);
+        if (rdata_bin.length != len) {
+            return false;
+        }
+
+        return this.setRData(rdata_bin);
     }
 
     public String toTextual() {
@@ -40,10 +71,7 @@ public class RR {
     }
 
     public String toTextual(String origin) {
-        return "";
-        // String.format("%s %d %s %s", //
-        // getLabel(), getTTL(), getRRClass().toString(),
-        // getRRType().toString());
+        return String.format(Locale.ENGLISH, "\\# %d %s", this.rdata.length, Hex.encode(this.rdata)).trim();
     }
 
     public byte[] encodeRData() {
