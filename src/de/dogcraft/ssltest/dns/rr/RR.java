@@ -22,7 +22,7 @@ public class RR {
 
     private int type;
 
-    private byte[] rdata;
+    protected byte[] rdata;
 
     public RR() {
         label = "";
@@ -133,6 +133,10 @@ public class RR {
 
     protected boolean parseRData(byte[] rdata, boolean setState) {
         return true;
+    }
+
+    public boolean isWellKnown() {
+        return false;
     }
 
 }
