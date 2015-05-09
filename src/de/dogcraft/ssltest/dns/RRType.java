@@ -1,11 +1,13 @@
 package de.dogcraft.ssltest.dns;
 
+import de.dogcraft.ssltest.dns.rr.A;
+import de.dogcraft.ssltest.dns.rr.AAAA;
 import de.dogcraft.ssltest.dns.rr.RR;
 
 public enum RRType {
     UNKNOWN(0, true),
 
-    A(1, de.dogcraft.ssltest.dns.rr.A.class),
+    A(1, A.class),
     NS(2),
     MD(3),
     MF(4),
@@ -32,7 +34,7 @@ public enum RRType {
     KEY(25),
     PX(26),
     GPOS(27),
-    AAAA(28, de.dogcraft.ssltest.dns.rr.AAAA.class),
+    AAAA(28, AAAA.class),
     LOC(29),
     NXT(30),
     EID(31),
