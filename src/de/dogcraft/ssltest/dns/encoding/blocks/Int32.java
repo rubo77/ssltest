@@ -1,7 +1,10 @@
 package de.dogcraft.ssltest.dns.encoding.blocks;
 
-import de.dogcraft.ssltest.dns.encoding.Entity;
+public class Int32 extends Integer {
 
-public class Int32 extends Entity {
+    @Override
+    public int getSize() {
+        return 4;
+    }
 
 }

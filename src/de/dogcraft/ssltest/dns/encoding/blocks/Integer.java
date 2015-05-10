@@ -2,8 +2,7 @@ package de.dogcraft.ssltest.dns.encoding.blocks;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
@@ -16,24 +15,26 @@ import de.dogcraft.ssltest.dns.encoding.RRTextDecoder;
 import de.dogcraft.ssltest.dns.encoding.RRTextDecoder.TextTokenDecoder;
 import de.dogcraft.ssltest.dns.encoding.RRTextEncoder;
 
-public abstract class Address extends Entity {
+public abstract class Integer extends Entity {
 
-    protected InetAddress value;
+    protected BigInteger value;
 
-    public abstract int getAddressFamilySize();
+    public abstract int getSize();
 
-    public abstract boolean checkValue(InetAddress ia);
+    public boolean checkValue(BigInteger bi) {
+        return bi.bitLength() < 8 * getSize();
+    }
 
     @Override
     protected void initCoders() {
-        encoders.put(RRTextEncoder.class, AddressTextTokenEncoder.class);
-        decoders.put(RRTextDecoder.class, AddressTextTokenDecoder.class);
+        encoders.put(RRTextEncoder.class, IntegerTextTokenEncoder.class);
+        decoders.put(RRTextDecoder.class, IntegerTextTokenDecoder.class);
 
-        encoders.put(RRBinaryEncoder.class, AddressBinaryTokenEncoder.class);
-        decoders.put(RRBinaryDecoder.class, AddressBinaryTokenDecoder.class);
+        encoders.put(RRBinaryEncoder.class, IntegerBinaryTokenEncoder.class);
+        decoders.put(RRBinaryDecoder.class, IntegerBinaryTokenDecoder.class);
     }
 
-    public class AddressTextTokenDecoder extends TextTokenDecoder {
+    public class IntegerTextTokenDecoder extends TextTokenDecoder {
 
         @Override
         public boolean decodeFrom(ByteBuffer ibb) {
@@ -43,13 +44,9 @@ public abstract class Address extends Entity {
                 return false;
             }
 
-            byte[] addr = rbb.array();
+            byte[] bytes = rbb.array();
 
-            try {
-                value = InetAddress.getByName(new String(addr, StandardCharsets.US_ASCII));
-            } catch (UnknownHostException e) {
-                return false;
-            }
+            value = new BigInteger(new String(bytes, StandardCharsets.US_ASCII));
 
             if ( !checkValue(value)) {
                 return false;
@@ -63,41 +60,44 @@ public abstract class Address extends Entity {
 
     }
 
-    public class AddressTextTokenEncoder implements TokenEncoder {
+    public class IntegerTextTokenEncoder implements TokenEncoder {
 
         @Override
         public void encodeTo(OutputStream os) throws IOException {
-            os.write(value.getHostAddress().getBytes(StandardCharsets.US_ASCII));
+            os.write(value.toString(10).getBytes(StandardCharsets.US_ASCII));
         }
 
     }
 
-    public class AddressBinaryTokenDecoder implements TokenDecoder {
+    public class IntegerBinaryTokenDecoder implements TokenDecoder {
 
         @Override
         public boolean decodeFrom(ByteBuffer ibb) {
-            if (ibb.remaining() < getAddressFamilySize()) {
+            if (ibb.remaining() < getSize()) {
                 return false;
             }
 
-            byte[] addr = new byte[getAddressFamilySize()];
-            ibb.get(addr);
-            try {
-                value = InetAddress.getByAddress(addr);
-            } catch (UnknownHostException e) {
-                return false;
-            }
+            byte[] bytes = new byte[getSize()];
+            ibb.get(bytes);
+
+            value = new BigInteger(bytes);
 
             return checkValue(value);
         }
 
     }
 
-    public class AddressBinaryTokenEncoder implements TokenEncoder {
+    public class IntegerBinaryTokenEncoder implements TokenEncoder {
 
         @Override
         public void encodeTo(OutputStream os) throws IOException {
-            os.write(value.getAddress());
+            byte[] ba = value.toByteArray();
+
+            for (int a = 0; a < getSize() - ba.length; a++) {
+                os.write(0);
+            }
+
+            os.write(ba, Math.max(0, getSize() - ba.length), Math.min(getSize(), ba.length));
         }
 
     }

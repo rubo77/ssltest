@@ -1,7 +1,11 @@
 package de.dogcraft.ssltest.dns.encoding.blocks;
 
-import de.dogcraft.ssltest.dns.encoding.Entity;
+public class Int16 extends Integer {
 
-public class Int16 extends Entity {
+    @Override
+    public int getSize() {
+        // TODO Auto-generated method stub
+        return 2;
+    }
 
 }
