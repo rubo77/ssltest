@@ -2,30 +2,16 @@ package de.dogcraft.ssltest.dns.rr;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
+
+import de.dogcraft.ssltest.dns.encoding.NamedEntityContainer;
+import de.dogcraft.ssltest.dns.encoding.blocks.IPv4;
 
 public class A extends RR {
 
     private InetAddress ip4address;
 
-    @Override
-    protected boolean parseRData(byte[] rdata, boolean setState) {
-        if (rdata.length != 4) {
-            return false;
-        }
-
-        InetAddress address;
-        try {
-            address = InetAddress.getByAddress(rdata);
-        } catch (UnknownHostException e) {
-            return false;
-        }
-
-        if (setState) {
-            setIP4Address(address);
-        }
-
-        return true;
+    static {
+        parserFormat.add(new NamedEntityContainer<IPv4>("ADDRESS"));
     }
 
     @Override
@@ -36,17 +22,6 @@ public class A extends RR {
     @Override
     public String getTypeName() {
         return "A";
-    }
-
-    @Override
-    public boolean fromTextualRData(String textual, String origin) {
-        try {
-            this.setIP4Address(Inet4Address.getByName(textual));
-        } catch (UnknownHostException e) {
-            return false;
-        }
-
-        return true;
     }
 
     @Override
@@ -64,8 +39,6 @@ public class A extends RR {
         }
 
         this.ip4address = ip4address;
-
-        this.rdata = this.ip4address.getAddress();
         return true;
     }
 

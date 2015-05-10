@@ -3,7 +3,9 @@ package de.dogcraft.ssltest.dns.rr;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -11,6 +13,8 @@ import org.bouncycastle.util.encoders.Hex;
 
 import de.dogcraft.ssltest.dns.RRClass;
 import de.dogcraft.ssltest.dns.RRType;
+import de.dogcraft.ssltest.dns.encoding.Entity;
+import de.dogcraft.ssltest.dns.encoding.EntityContainer;
 
 public class RR {
 
@@ -23,6 +27,8 @@ public class RR {
     private int type;
 
     protected byte[] rdata;
+
+    protected static final List<EntityContainer<? extends Entity>> parserFormat = new ArrayList<EntityContainer<? extends Entity>>();
 
     public RR() {
         label = "";
@@ -169,6 +175,10 @@ public class RR {
 
     public boolean isWellKnown() {
         return false;
+    }
+
+    public static List<EntityContainer<? extends Entity>> getParserformat() {
+        return Collections.unmodifiableList(parserFormat);
     }
 
 }

@@ -4,9 +4,16 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import de.dogcraft.ssltest.dns.encoding.NamedEntityContainer;
+import de.dogcraft.ssltest.dns.encoding.blocks.IPv6;
+
 public class AAAA extends RR {
 
     private InetAddress ip6address;
+
+    static {
+        parserFormat.add(new NamedEntityContainer<IPv6>("ADDRESS"));
+    }
 
     @Override
     protected boolean parseRData(byte[] rdata, boolean setState) {
