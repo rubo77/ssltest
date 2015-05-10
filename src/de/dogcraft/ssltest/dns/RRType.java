@@ -2,27 +2,35 @@ package de.dogcraft.ssltest.dns;
 
 import de.dogcraft.ssltest.dns.rr.A;
 import de.dogcraft.ssltest.dns.rr.AAAA;
+import de.dogcraft.ssltest.dns.rr.CNAME;
+import de.dogcraft.ssltest.dns.rr.HINFO;
+import de.dogcraft.ssltest.dns.rr.LOC;
+import de.dogcraft.ssltest.dns.rr.MX;
+import de.dogcraft.ssltest.dns.rr.NS;
+import de.dogcraft.ssltest.dns.rr.PTR;
 import de.dogcraft.ssltest.dns.rr.RR;
+import de.dogcraft.ssltest.dns.rr.SOA;
+import de.dogcraft.ssltest.dns.rr.TXT;
 
 public enum RRType {
     UNKNOWN(0, true),
 
     A(1, A.class),
-    NS(2),
+    NS(2, NS.class),
     MD(3),
     MF(4),
-    CNAME(5),
-    SOA(6),
+    CNAME(5, CNAME.class),
+    SOA(6, SOA.class),
     MB(7),
     MG(8),
     MR(9),
     NULL(10),
     WKS(11),
-    PTR(12),
-    HINFO(13),
+    PTR(12, PTR.class),
+    HINFO(13, HINFO.class),
     MINFO(14),
-    MX(15),
-    TXT(16),
+    MX(15, MX.class),
+    TXT(16, TXT.class),
     RP(17),
     AFSDB(18),
     X25(19),
@@ -35,7 +43,7 @@ public enum RRType {
     PX(26),
     GPOS(27),
     AAAA(28, AAAA.class),
-    LOC(29),
+    LOC(29, LOC.class),
     NXT(30),
     EID(31),
     NIMLOC(32),
