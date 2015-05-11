@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
+import de.dogcraft.ssltest.dns.encoding.Context;
 import de.dogcraft.ssltest.dns.encoding.Entity;
 import de.dogcraft.ssltest.dns.encoding.RRBinaryDecoder;
 import de.dogcraft.ssltest.dns.encoding.RRBinaryEncoder;
@@ -20,17 +21,17 @@ public class Text extends Entity {
 
     @Override
     protected void initCoders() {
-        encoders.put(RRTextEncoder.class, CharStringTextTokenEncoder.class);
-        decoders.put(RRTextDecoder.class, CharStringTextTokenDecoder.class);
+        getEncoders().put(RRTextEncoder.class, CharStringTextTokenEncoder.class);
+        getDecoders().put(RRTextDecoder.class, CharStringTextTokenDecoder.class);
 
-        encoders.put(RRBinaryEncoder.class, CharStringBinaryTokenEncoder.class);
-        decoders.put(RRBinaryDecoder.class, CharStringBinaryTokenDecoder.class);
+        getEncoders().put(RRBinaryEncoder.class, CharStringBinaryTokenEncoder.class);
+        getDecoders().put(RRBinaryDecoder.class, CharStringBinaryTokenDecoder.class);
     }
 
     public class CharStringTextTokenDecoder extends TextTokenDecoder {
 
         @Override
-        public boolean decodeFrom(ByteBuffer ibb) {
+        public boolean decodeFrom(ByteBuffer ibb, Context ctx) throws IOException {
             ByteBuffer rbb = ibb.slice();
 
             if (rbb.remaining() < 2) {
@@ -78,7 +79,7 @@ public class Text extends Entity {
     public class CharStringTextTokenEncoder implements TokenEncoder {
 
         @Override
-        public void encodeTo(OutputStream os) throws IOException {
+        public void encodeTo(OutputStream os, Context ctx) throws IOException {
             os.write('"');
             os.write(value.getBytes(StandardCharsets.US_ASCII));
             os.write('"');
@@ -89,7 +90,7 @@ public class Text extends Entity {
     public class CharStringBinaryTokenDecoder implements TokenDecoder {
 
         @Override
-        public boolean decodeFrom(ByteBuffer ibb) {
+        public boolean decodeFrom(ByteBuffer ibb, Context ctx) throws IOException {
             if (ibb.remaining() < 1) {
                 return false;
             }
@@ -116,7 +117,7 @@ public class Text extends Entity {
     public class CharStringBinaryTokenEncoder implements TokenEncoder {
 
         @Override
-        public void encodeTo(OutputStream os) throws IOException {
+        public void encodeTo(OutputStream os, Context ctx) throws IOException {
             os.write(value.getBytes(StandardCharsets.US_ASCII).length);
             os.write(value.getBytes(StandardCharsets.US_ASCII));
         }

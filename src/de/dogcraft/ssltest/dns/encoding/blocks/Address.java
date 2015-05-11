@@ -7,6 +7,7 @@ import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
+import de.dogcraft.ssltest.dns.encoding.Context;
 import de.dogcraft.ssltest.dns.encoding.Entity;
 import de.dogcraft.ssltest.dns.encoding.RRBinaryDecoder;
 import de.dogcraft.ssltest.dns.encoding.RRBinaryEncoder;
@@ -26,17 +27,17 @@ public abstract class Address extends Entity {
 
     @Override
     protected void initCoders() {
-        encoders.put(RRTextEncoder.class, AddressTextTokenEncoder.class);
-        decoders.put(RRTextDecoder.class, AddressTextTokenDecoder.class);
+        getEncoders().put(RRTextEncoder.class, AddressTextTokenEncoder.class);
+        getDecoders().put(RRTextDecoder.class, AddressTextTokenDecoder.class);
 
-        encoders.put(RRBinaryEncoder.class, AddressBinaryTokenEncoder.class);
-        decoders.put(RRBinaryDecoder.class, AddressBinaryTokenDecoder.class);
+        getEncoders().put(RRBinaryEncoder.class, AddressBinaryTokenEncoder.class);
+        getDecoders().put(RRBinaryDecoder.class, AddressBinaryTokenDecoder.class);
     }
 
     public class AddressTextTokenDecoder extends TextTokenDecoder {
 
         @Override
-        public boolean decodeFrom(ByteBuffer ibb) {
+        public boolean decodeFrom(ByteBuffer ibb, Context ctx) throws IOException {
             ByteBuffer rbb = readUnquoted(ibb);
 
             if (rbb == null) {
@@ -66,7 +67,7 @@ public abstract class Address extends Entity {
     public class AddressTextTokenEncoder implements TokenEncoder {
 
         @Override
-        public void encodeTo(OutputStream os) throws IOException {
+        public void encodeTo(OutputStream os, Context ctx) throws IOException {
             os.write(value.getHostAddress().getBytes(StandardCharsets.US_ASCII));
         }
 
@@ -75,7 +76,7 @@ public abstract class Address extends Entity {
     public class AddressBinaryTokenDecoder implements TokenDecoder {
 
         @Override
-        public boolean decodeFrom(ByteBuffer ibb) {
+        public boolean decodeFrom(ByteBuffer ibb, Context ctx) throws IOException {
             if (ibb.remaining() < getAddressFamilySize()) {
                 return false;
             }
@@ -96,7 +97,7 @@ public abstract class Address extends Entity {
     public class AddressBinaryTokenEncoder implements TokenEncoder {
 
         @Override
-        public void encodeTo(OutputStream os) throws IOException {
+        public void encodeTo(OutputStream os, Context ctx) throws IOException {
             os.write(value.getAddress());
         }
 

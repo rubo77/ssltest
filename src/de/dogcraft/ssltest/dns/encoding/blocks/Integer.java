@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
+import de.dogcraft.ssltest.dns.encoding.Context;
 import de.dogcraft.ssltest.dns.encoding.Entity;
 import de.dogcraft.ssltest.dns.encoding.RRBinaryDecoder;
 import de.dogcraft.ssltest.dns.encoding.RRBinaryEncoder;
@@ -27,17 +28,17 @@ public abstract class Integer extends Entity {
 
     @Override
     protected void initCoders() {
-        encoders.put(RRTextEncoder.class, IntegerTextTokenEncoder.class);
-        decoders.put(RRTextDecoder.class, IntegerTextTokenDecoder.class);
+        getEncoders().put(RRTextEncoder.class, IntegerTextTokenEncoder.class);
+        getDecoders().put(RRTextDecoder.class, IntegerTextTokenDecoder.class);
 
-        encoders.put(RRBinaryEncoder.class, IntegerBinaryTokenEncoder.class);
-        decoders.put(RRBinaryDecoder.class, IntegerBinaryTokenDecoder.class);
+        getEncoders().put(RRBinaryEncoder.class, IntegerBinaryTokenEncoder.class);
+        getDecoders().put(RRBinaryDecoder.class, IntegerBinaryTokenDecoder.class);
     }
 
     public class IntegerTextTokenDecoder extends TextTokenDecoder {
 
         @Override
-        public boolean decodeFrom(ByteBuffer ibb) {
+        public boolean decodeFrom(ByteBuffer ibb, Context ctx) throws IOException {
             ByteBuffer rbb = readUnquoted(ibb);
 
             if (rbb == null) {
@@ -63,7 +64,7 @@ public abstract class Integer extends Entity {
     public class IntegerTextTokenEncoder implements TokenEncoder {
 
         @Override
-        public void encodeTo(OutputStream os) throws IOException {
+        public void encodeTo(OutputStream os, Context ctx) throws IOException {
             os.write(value.toString(10).getBytes(StandardCharsets.US_ASCII));
         }
 
@@ -72,7 +73,7 @@ public abstract class Integer extends Entity {
     public class IntegerBinaryTokenDecoder implements TokenDecoder {
 
         @Override
-        public boolean decodeFrom(ByteBuffer ibb) {
+        public boolean decodeFrom(ByteBuffer ibb, Context ctx) throws IOException {
             if (ibb.remaining() < getSize()) {
                 return false;
             }
@@ -90,7 +91,7 @@ public abstract class Integer extends Entity {
     public class IntegerBinaryTokenEncoder implements TokenEncoder {
 
         @Override
-        public void encodeTo(OutputStream os) throws IOException {
+        public void encodeTo(OutputStream os, Context ctx) throws IOException {
             byte[] ba = value.toByteArray();
 
             for (int a = 0; a < getSize() - ba.length; a++) {

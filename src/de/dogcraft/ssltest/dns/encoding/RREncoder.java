@@ -15,7 +15,7 @@ public abstract class RREncoder {
 
     public interface TokenEncoder {
 
-        public void encodeTo(OutputStream os) throws IOException;
+        public void encodeTo(OutputStream os, Context ctx) throws IOException;
 
     }
 

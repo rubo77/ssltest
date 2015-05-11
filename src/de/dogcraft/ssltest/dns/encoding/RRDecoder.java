@@ -15,7 +15,7 @@ public abstract class RRDecoder {
 
     public static interface TokenDecoder {
 
-        public boolean decodeFrom(ByteBuffer ibb) throws IOException;
+        public boolean decodeFrom(ByteBuffer ibb, Context ctx) throws IOException;
 
     }
 

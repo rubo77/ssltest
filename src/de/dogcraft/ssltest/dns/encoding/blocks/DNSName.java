@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
+import de.dogcraft.ssltest.dns.encoding.Context;
 import de.dogcraft.ssltest.dns.encoding.Entity;
 import de.dogcraft.ssltest.dns.encoding.RRBinaryDecoder;
 import de.dogcraft.ssltest.dns.encoding.RRBinaryEncoder;
@@ -24,17 +25,17 @@ public class DNSName extends Entity {
 
     @Override
     protected void initCoders() {
-        encoders.put(RRTextEncoder.class, DNSNameTextTokenEncoder.class);
-        decoders.put(RRTextDecoder.class, DNSNameTextTokenDecoder.class);
+        getEncoders().put(RRTextEncoder.class, DNSNameTextTokenEncoder.class);
+        getDecoders().put(RRTextDecoder.class, DNSNameTextTokenDecoder.class);
 
-        encoders.put(RRBinaryEncoder.class, DNSNameBinaryTokenEncoder.class);
-        decoders.put(RRBinaryDecoder.class, DNSNameBinaryTokenDecoder.class);
+        getEncoders().put(RRBinaryEncoder.class, DNSNameBinaryTokenEncoder.class);
+        getDecoders().put(RRBinaryDecoder.class, DNSNameBinaryTokenDecoder.class);
     }
 
     public class DNSNameTextTokenDecoder extends TextTokenDecoder {
 
         @Override
-        public boolean decodeFrom(ByteBuffer ibb) {
+        public boolean decodeFrom(ByteBuffer ibb, Context ctx) throws IOException {
             ByteBuffer rbb = readUnquoted(ibb);
 
             if (rbb == null) {
@@ -60,7 +61,7 @@ public class DNSName extends Entity {
     public class DNSNameTextTokenEncoder implements TokenEncoder {
 
         @Override
-        public void encodeTo(OutputStream os) throws IOException {
+        public void encodeTo(OutputStream os, Context ctx) throws IOException {
             os.write(value.getBytes(StandardCharsets.US_ASCII));
         }
 
@@ -69,7 +70,7 @@ public class DNSName extends Entity {
     public class DNSNameBinaryTokenDecoder implements TokenDecoder {
 
         @Override
-        public boolean decodeFrom(ByteBuffer ibb) {
+        public boolean decodeFrom(ByteBuffer ibb, Context ctx) throws IOException {
             return false;
             /*
              * if (ibb.remaining() < getAddressFamilySize()) { return false; }
@@ -85,7 +86,7 @@ public class DNSName extends Entity {
     public class DNSNameBinaryTokenEncoder implements TokenEncoder {
 
         @Override
-        public void encodeTo(OutputStream os) throws IOException {
+        public void encodeTo(OutputStream os, Context ctx) throws IOException {
             /*
              * os.write(value.getAddress());
              */
