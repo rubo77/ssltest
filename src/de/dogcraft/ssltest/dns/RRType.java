@@ -7,6 +7,7 @@ import de.dogcraft.ssltest.dns.rr.HINFO;
 import de.dogcraft.ssltest.dns.rr.LOC;
 import de.dogcraft.ssltest.dns.rr.MX;
 import de.dogcraft.ssltest.dns.rr.NS;
+import de.dogcraft.ssltest.dns.rr.NULL;
 import de.dogcraft.ssltest.dns.rr.PTR;
 import de.dogcraft.ssltest.dns.rr.RR;
 import de.dogcraft.ssltest.dns.rr.SOA;
@@ -24,7 +25,7 @@ public enum RRType {
     MB(7),
     MG(8),
     MR(9),
-    NULL(10),
+    NULL(10, NULL.class),
     WKS(11),
     PTR(12, PTR.class),
     HINFO(13, HINFO.class),
