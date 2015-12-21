@@ -1,5 +1,8 @@
 #container {
+	float: right;
 	margin-top: 70px;
+	margin-right: 20px;
+	width:88%;
 }
 .space-below {
 	margin-bottom: 10px;
@@ -74,7 +77,7 @@ span.unknownVal {
 
 div#outline{
 	position: fixed;
-	top: 80px;
+	top: 63px;
 	border: 1px solid black;
 	margin: 10px;
 	padding: 5px;
@@ -83,194 +86,192 @@ div#outline{
 	overflow: auto;
 	max-width: 330px;
 }
-@media (max-width: 1850px){
 div#outline{
-	visibility:hidden;
-}
+	overflow: auto;
 }
 div#outline ul{
 	padding: 15px;
 }
 
 table.ciphertable, td.cipher-kextype[data-value="RSA"] {
-    background-color:#fdd;
+	background-color:#fdd;
 }
 table.ciphertable, td.cipher-kextype[data-value="DH"] {
-    background-color:#dfd;
+	background-color:#dfd;
 }
 table.ciphertable, td.cipher-kextype[data-value="ECDH"] {
-    background-color:#ddf;
+	background-color:#ddf;
 }
 
 table.ciphertable, td.cipher-authtype[data-value="RSA"] {
-    background-color:#dfd;
+	background-color:#dfd;
 }
 table.ciphertable, td.cipher-authtype[data-value="DSA"] {
-    background-color:#fdd;
+	background-color:#fdd;
 }
 table.ciphertable, td.cipher-authtype[data-value="ECDSA"] {
-    background-color:#ddf;
+	background-color:#ddf;
 }
 
 table.ciphertable, td.cipher-enctype[data-value="RC2"] {
-    background-color:#fdd;
+	background-color:#fdd;
 }
 table.ciphertable, td.cipher-enctype[data-value="RC4"] {
-    background-color:#fdd;
+	background-color:#fdd;
 }
 table.ciphertable, td.cipher-enctype[data-value="RC5"] {
-    background-color:#fdd;
+	background-color:#fdd;
 }
 table.ciphertable, td.cipher-enctype[data-value^="DES"] {
-    background-color:#fdd;
+	background-color:#fdd;
 }
 table.ciphertable, td.cipher-enctype[data-value^="Salza20"] {
-    background-color:#ddf;
+	background-color:#ddf;
 }
 table.ciphertable, td.cipher-enctype[data-value^="Chacha20"] {
-    background-color:#ddf;
+	background-color:#ddf;
 }
 table.ciphertable, td.cipher-enctype[data-value="Camellia"] {
-    background-color:#dfd;
+	background-color:#dfd;
 }
 table.ciphertable, td.cipher-enctype[data-value="AES"] {
-    background-color:#efd;
+	background-color:#efd;
 }
 table.ciphertable, td.cipher-enctype[data-value^="GOST"] {
-    background-color:#dff;
+	background-color:#dff;
 }
 table.ciphertable, td.cipher-enctype[data-value^="SEED"] {
-    background-color:#fed;
+	background-color:#fed;
 }
 
 table.ciphertable, td.cipher-encksize[data-type="RC2"] {
-    background-color:#fdd;
+	background-color:#fdd;
 }
 table.ciphertable, td.cipher-encksize[data-type="RC4"] {
-    background-color:#fdd;
+	background-color:#fdd;
 }
 table.ciphertable, td.cipher-encksize[data-type="RC5"] {
-    background-color:#fdd;
+	background-color:#fdd;
 }
 table.ciphertable, td.cipher-encksize[data-type^="DES"][data-value="40"] {
-    background-color:#fdd;
+	background-color:#fdd;
 }
 table.ciphertable, td.cipher-encksize[data-type^="DES"][data-value="56"] {
-    background-color:#fdd;
+	background-color:#fdd;
 }
 table.ciphertable, td.cipher-encksize[data-type^="DES"][data-value="112"] {
-    background-color:#fed;
+	background-color:#fed;
 }
 table.ciphertable, td.cipher-encksize[data-type^="DES"][data-value="168"] {
-    background-color:#fed;
+	background-color:#fed;
 }
 table.ciphertable, td.cipher-encksize[data-type="Camellia"][data-value="128"] {
-    background-color:#ffd;
+	background-color:#ffd;
 }
 table.ciphertable, td.cipher-encksize[data-type="Camellia"][data-value="192"] {
-    background-color:#efd;
+	background-color:#efd;
 }
 table.ciphertable, td.cipher-encksize[data-type="Camellia"][data-value="256"] {
-    background-color:#dfd;
+	background-color:#dfd;
 }
 table.ciphertable, td.cipher-encksize[data-type="AES"][data-value="128"] {
-    background-color:#ffd;
+	background-color:#ffd;
 }
 table.ciphertable, td.cipher-encksize[data-type="AES"][data-value="192"] {
-    background-color:#efd;
+	background-color:#efd;
 }
 table.ciphertable, td.cipher-encksize[data-type="AES"][data-value="256"] {
-    background-color:#dfd;
+	background-color:#dfd;
 }
 table.ciphertable, td.cipher-encksize[data-type="Chacha20"][data-value="256"] {
-    background-color:#dfd;
+	background-color:#dfd;
 }
 table.ciphertable, td.cipher-encksize[data-type="Salsa20"][data-value="256"] {
-    background-color:#dfd;
+	background-color:#dfd;
 }
 table.ciphertable, td.cipher-encksize[data-type^="GOST"] {
-    background-color:#ddf;
+	background-color:#ddf;
 }
 table.ciphertable, td.cipher-encksize[data-type^="SEED"] {
-    background-color:#fed;
+	background-color:#fed;
 }
 
 table.ciphertable, td.cipher-encbsize[data-value="Stream"] {
-    background-color:#eee;
+	background-color:#eee;
 }
 table.ciphertable, td.cipher-encbsize[data-type^="DES"][data-value="64"] {
-    background-color:#fdd;
+	background-color:#fdd;
 }
 table.ciphertable, td.cipher-encbsize[data-type="Camellia"][data-value="128"] {
-    background-color:#ffd;
+	background-color:#ffd;
 }
 table.ciphertable, td.cipher-encbsize[data-type="Camellia"][data-value="192"] {
-    background-color:#efd;
+	background-color:#efd;
 }
 table.ciphertable, td.cipher-encbsize[data-type="Camellia"][data-value="256"] {
-    background-color:#dfd;
+	background-color:#dfd;
 }
 table.ciphertable, td.cipher-encbsize[data-type="AES"][data-value="128"] {
-    background-color:#ffd;
+	background-color:#ffd;
 }
 table.ciphertable, td.cipher-encbsize[data-type="AES"][data-value="192"] {
-    background-color:#efd;
+	background-color:#efd;
 }
 table.ciphertable, td.cipher-encbsize[data-type="AES"][data-value="256"] {
-    background-color:#dfd;
+	background-color:#dfd;
 }
 table.ciphertable, td.cipher-encbsize[data-type^="GOST"] {
-    background-color:#ddf;
+	background-color:#ddf;
 }
 table.ciphertable, td.cipher-encbsize[data-type^="SEED"] {
-    background-color:#fed;
+	background-color:#fed;
 }
 
 table.ciphertable, td.cipher-mode[data-value="CBC"] {
-    background-color:#fdd;
+	background-color:#fdd;
 }
 table.ciphertable, td.cipher-mode[data-value="GCM"] {
-    background-color:#dfd;
+	background-color:#dfd;
 }
 table.ciphertable, td.cipher-mode[data-value="CCM"] {
-    background-color:#dfd;
+	background-color:#dfd;
 }
 table.ciphertable, td.cipher-mode[data-value="EAX"] {
-    background-color:#ddf;
+	background-color:#ddf;
 }
 table.ciphertable, td.cipher-mode[data-value="Stream"] {
-    background-color:#eee;
+	background-color:#eee;
 }
 
 table.ciphertable, td.cipher-mactype[data-value^="SHA-1"] {
-    background-color:#ffd;
+	background-color:#ffd;
 }
 table.ciphertable, td.cipher-mactype[data-value^="SHA-256"] {
-    background-color:#efd;
+	background-color:#efd;
 }
 table.ciphertable, td.cipher-mactype[data-value^="SHA-384"] {
-    background-color:#dfd;
+	background-color:#dfd;
 }
 table.ciphertable, td.cipher-mactype[data-value^="SHA-512"] {
-    background-color:#dfd;
+	background-color:#dfd;
 }
 table.ciphertable, td.cipher-mactype[data-value^="MD5"] {
-    background-color:#fcc;
+	background-color:#fcc;
 }
 table.ciphertable, td.cipher-mactype[data-value="GCM"] {
-    background-color:#dfd;
+	background-color:#dfd;
 }
 table.ciphertable, td.cipher-mactype[data-value="CCM"] {
-    background-color:#dfd;
+	background-color:#dfd;
 }
 table.ciphertable, td.cipher-mactype[data-value="Poly1305"] {
-    background-color:#ddf;
+	background-color:#ddf;
 }
 
 table.ciphertable, td.cipher-pfs[data-value="yes"] {
-    background-color:#dfd;
+	background-color:#dfd;
 }
 table.ciphertable, td.cipher-pfs[data-value="no"] {
-    background-color:#fdd;
+	background-color:#fdd;
 }
 
