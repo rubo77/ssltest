@@ -1,5 +1,8 @@
 #container {
+	float: right;
 	margin-top: 70px;
+	margin-right: 20px;
+	width:88%;
 }
 .space-below {
 	margin-bottom: 10px;
@@ -74,19 +77,16 @@ span.unknownVal {
 
 div#outline{
 	position: fixed;
-	top: 80px;
+	top: 63px;
+	width:10%;
 	border: 1px solid black;
 	margin: 10px;
 	padding: 5px;
-
 	max-height: 80%;
 	overflow: auto;
 	max-width: 330px;
-}
-@media (max-width: 1850px){
-div#outline{
-	visibility:hidden;
-}
+	visibility:show;
+	word-break: break-all;
 }
 div#outline ul{
 	padding: 15px;
