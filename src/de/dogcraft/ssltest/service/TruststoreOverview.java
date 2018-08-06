@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
+import java.security.InvalidKeyException;
 import java.security.KeyStore;
 import java.security.MessageDigest;
 import java.security.PublicKey;
@@ -379,8 +380,9 @@ public class TruststoreOverview extends HttpServlet {
                 try {
                     cert.verify(cert.getPublicKey());
                     pw.print("S");
+                } catch (InvalidKeyException ex) {
+                    pw.print("U");
                 } catch (SignatureException ex) {
-
                 }
                 pw.print("</td>");
                 for (Entry<String, TruststoreGroup> truststore : TruststoreGroup.getStores().entrySet()) {
