@@ -64,6 +64,9 @@ public class TruststoreOverview extends HttpServlet {
             try {
                 pubkey = TruststoreUtil.outputFingerprint(c.getPublicKey().getEncoded(), MessageDigest.getInstance("SHA-512"));
                 hash = c.getSigAlgName();
+                if("1.3.36.3.3.1.2".equals(hash)) {
+                    hash = "RIPEMD160withRSA";
+                }
                 X500Name n = new X500Name(c.getSubjectX500Principal().getEncoded());
                 o = n.getOrganization();
                 ou = n.getOrganizationalUnit();
