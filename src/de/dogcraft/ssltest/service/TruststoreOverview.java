@@ -382,17 +382,7 @@ public class TruststoreOverview extends HttpServlet {
         pw.println("</div>");
 
         pw.println("<table border='1'>");
-        pw.print("<tr><th>C</th><th>O</th><th>OU</th><th>CN</th><th>other dn</th><th>signature</th><th>keyType</th><th>keySize</th><th>keyDetail</th><th>pubkey ID</th><th>#</th><th>from</th><th>to</th><th><span title='selfsigned'>S</span>");
-        for (Entry<String, TruststoreGroup> truststore : TruststoreGroup.getStores().entrySet()) {
-            for (Entry<String, Truststore> entry : truststore.getValue().getContainedTables().entrySet()) {
-                pw.print("<th class='rotate'><div><span title='");
-                pw.print(truststore.getKey() + "/" + entry.getKey());
-                pw.print("'>");
-                pw.print(truststore.getKey() + "/" + entry.getKey());
-                pw.print("</span></div></th>");
-            }
-        }
-        pw.println("</tr>");
+
         try {
             Truststore any = TruststoreGroup.getAnyTruststore();
             KeyStore ks = any.getKeyStore();
@@ -415,6 +405,18 @@ public class TruststoreOverview extends HttpServlet {
                 }
                 certs.put(gname, c);
             }
+            pw.print("<tr><th colspan=\"" + TruststoreGroup.getStores().size() + 14 + "\">The following table contains " + certs.size() + " entries</th></tr>");
+            pw.print("<tr><th>C</th><th>O</th><th>OU</th><th>CN</th><th>other dn</th><th>signature</th><th>keyType</th><th>keySize</th><th>keyDetail</th><th>pubkey ID</th><th>#</th><th>from</th><th>to</th><th><span title='selfsigned'>S</span>");
+            for (Entry<String, TruststoreGroup> truststore : TruststoreGroup.getStores().entrySet()) {
+                for (Entry<String, Truststore> entry : truststore.getValue().getContainedTables().entrySet()) {
+                    pw.print("<th class='rotate'><div><span title='");
+                    pw.print(truststore.getKey() + "/" + entry.getKey());
+                    pw.print("'>");
+                    pw.print(truststore.getKey() + "/" + entry.getKey());
+                    pw.print("</span></div></th>");
+                }
+            }
+            pw.println("</tr>");
             for (Entry<CertificateIdentifier, Certificate> e : certs.entrySet()) {
                 X509Certificate cert = (X509Certificate) e.getValue();
                 pw.print("<tr>");
