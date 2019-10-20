@@ -102,6 +102,9 @@ public class Service extends HttpServlet {
             if (req.getParameter("fp") != null) {
                 reqTestCertificate(req, resp, false);
             }
+        } else if (path.equals("/certclear")) {
+            CertificateTestService.clearCache();
+            resp.sendRedirect("/cert");
         } else if (path.equals("/oid.js")) {
             OIDs.outputOids(resp);
         } else if (path.equals("/certstatus")) {
