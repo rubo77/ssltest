@@ -89,6 +89,9 @@ public class Service extends HttpServlet {
             if (req.getParameter("domain") != null) {
                 reqTestServer(req, resp, false);
             }
+        } else if (path.equals("/serverclear")) {
+            ServerTestService.clearCache();
+            resp.sendRedirect("/");
         } else if (path.equals("/cert.event")) {
             resp.addHeader("Cache-Control", "max-age=0");
             if (req.getParameter("fp") != null) {
